@@ -95,5 +95,30 @@ class User{
             }
     }
 
+    public function sessionCheck(){
+
+        
+
+        $currentPage = basename($_SERVER['PHP_SELF']);
+
+        if (empty($_SESSION['uid']) ) {
+
+
+            if ($currentPage != 'index.php' && $currentPage != 'signup.php') {
+                
+                header("location: {$this->route}");
+                exit;
+            }
+            
+        }
+        else{
+            if ($currentPage == 'index.php' || $currentPage == 'signup.php') {
+                
+                header("location: {$this->route}chatroom.php");
+                exit;
+            }
+        }
+    }
+
 
 }

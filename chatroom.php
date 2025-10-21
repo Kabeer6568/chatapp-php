@@ -1,3 +1,14 @@
+<?php
+include "includes/header.php";
+include "classes/user.php";
+
+$user = new User;
+
+session_start();
+$user->sessionCheck();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

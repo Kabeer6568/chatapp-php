@@ -5,6 +5,7 @@ include "includes/header.php";
 include "classes/user.php";
 
 $user = new User;
+$user->sessionCheck();
 
 session_start();
 

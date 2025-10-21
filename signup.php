@@ -6,6 +6,10 @@ require_once "classes/user.php";
 
 $user = new User;
 
+session_start();
+$user->sessionCheck();
+
+
 if (isset($_POST['submit'])) {
     $user->userSignup($_POST['username'] , $_POST['useremail'] , $_POST['userpass'] , $_FILES['profile_pic'] );
 }
