@@ -7,6 +7,7 @@ require_once "config/db.php";
 class User{
 
     private $pdo;
+    public $route = "http://localhost/chat_app/" ;
 
     public function __construct(){
 
@@ -34,9 +35,9 @@ class User{
 
             $stat = $this->pdo->prepare($sql);
 
-            $res = $stat->execute([$username , $useremail , $userpass , $target_file]);
+            $res = $stat->execute([$username , $useremail , $hashPass , $target_file]);
 
-            return $res;
+            header("location:  {$this->route}chatroom.php");
         }
         else{
             echo "ERROR UPLOADING IMAGE";
@@ -56,9 +57,43 @@ class User{
 
         return $res;
 
-
     }
 
+    public function userLogin($userInput , $userpass){
+
+        $sql = "SELECT * FROM users WHERE username = ? OR useremail = ?";
+        $stat =  $this->pdo->prepare($sql);
+
+        $stat->execute([$userInput , $userInput]);
+
+        $row = $stat->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            
+            $storedPass = $row['userpass'];
+
+            if (password_verify($userpass , $storedPass)) {
+                
+                $_SESSION['uid'] = $row['id'];
+                $_SESSION['username'] = $row['username'];
+
+                header("location:  {$this->route}chatroom.php");
+
+            }
+            else{
+                echo 
+                "<script>
+                    alert(' Incorrect Password');
+                </script>";
+            }
+        }
+        else{
+                echo 
+                "<script>
+                    alert(' Incorrect User Name Or Email');
+                </script>";
+            }
+    }
 
 
 }
