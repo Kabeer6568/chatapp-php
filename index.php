@@ -5,9 +5,10 @@ include "includes/header.php";
 include "classes/user.php";
 
 $user = new User;
+session_start();
 $user->sessionCheck();
 
-session_start();
+
 
 if (isset($_POST['submit'])) {
   $user->userLogin($_POST['userInput'] , $_POST['userpass']);

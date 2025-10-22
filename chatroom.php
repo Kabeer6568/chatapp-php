@@ -1,12 +1,16 @@
 <?php
+session_start();
 include "includes/header.php";
 include "classes/user.php";
+include "classes/chat.php";
 
 $user = new User;
+$chat = new Chat;
 
-session_start();
+
 $user->sessionCheck();
 
+$users = $chat->fetchUsers();
 ?>
 
 <!DOCTYPE html>
@@ -32,18 +36,23 @@ $user->sessionCheck();
             <!-- =============================================================== -->
             <!-- member list -->
             <ul class="friend-list">
+				<?php foreach ($users as $user): {
+					
+			
+					
+				 ?>
                 <li class="active bounceInDown">
                 	<a href="#" class="clearfix">
                 		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
                 		<div class="friend-name">	
-                			<strong>John Doe</strong>
+                			<strong><?php  echo htmlspecialchars($user['username']); ?></strong>
                 		</div>
-                		<div class="last-message text-muted">Hello, Are you there?</div>
+                		<div class="last-message text-muted"><?php  echo htmlspecialchars($user['status']); ?></div>
                 		<small class="time text-muted">Just now</small>
                 		<small class="chat-alert label label-danger">1</small>
                 	</a>
                 </li>
-                               
+                     <?php } endforeach; ?>      
             </ul>
 		</div>
         
