@@ -41,9 +41,9 @@ $users = $chat->fetchUsers();
 			
 					
 				 ?>
-                <li class="active bounceInDown">
+                <li class="active bounceInDown" onclick="openChat(<?php echo $user['id']; ?>);">
                 	<a href="#" class="clearfix">
-                		<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                		<img src="<?php  echo htmlspecialchars($user['profile_pic']); ?>" alt="" class="img-circle">
                 		<div class="friend-name">	
                 			<strong><?php  echo htmlspecialchars($user['username']); ?></strong>
                 		</div>
@@ -93,7 +93,7 @@ $users = $chat->fetchUsers();
                 </ul>
             </div>
             <div class="chat-box bg-white">
-            	<div class="input-group">
+            	<div class="input-group" id="chatInput">
             		<input class="form-control border no-shadow no-rounded" placeholder="Type your message here">
             		<span class="input-group-btn">
             			<button class="btn btn-success no-rounded" type="button">Send</button>
