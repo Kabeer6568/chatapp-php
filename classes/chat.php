@@ -1,7 +1,7 @@
 <?php
 
 
-require_once "config/db.php";
+require_once __DIR__ . "/../config/db.php";
 
 class Chat extends Database {
 
@@ -22,12 +22,12 @@ class Chat extends Database {
 
     public function getMessages($sender_id , $receiver_id){
 
-        $sql = "SELECT * FROM messages WHERE (sender_id = ? , receiver_id = ?) OR (receiver_id = ? , sender_id = ?) 
+        $sql = "SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) 
         ORDER BY created_at ASC";
 
         $stat = $this->pdo->prepare($sql);
 
-        $stat->execute($sender_id , $receiver_id , $receiver_id , $sender_id);
+        $stat->execute([$sender_id , $receiver_id , $receiver_id , $sender_id]);
 
         $res = $stat->fetchAll(PDO::FETCH_ASSOC);
 

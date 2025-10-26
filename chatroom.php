@@ -1,8 +1,10 @@
 <?php
 session_start();
+// require_once "config/db.php";
+
 include "includes/header.php";
-include "classes/user.php";
-include "classes/chat.php";
+require_once "classes/user.php";
+require_once "classes/chat.php";
 
 $user = new User;
 $chat = new Chat;
@@ -41,7 +43,7 @@ $users = $chat->fetchUsers();
 			
 					
 				 ?>
-                <li class="active bounceInDown" onclick="openChat(<?php echo $user['id']; ?>);">
+                <li class="active bounceInDown" onclick="openChat(<?php echo $user['id']; ?>, '<?php echo htmlspecialchars($user['username'], ENT_QUOTES); ?>');">
                 	<a href="#" class="clearfix">
                 		<img src="<?php  echo htmlspecialchars($user['profile_pic']); ?>" alt="" class="img-circle">
                 		<div class="friend-name">	
